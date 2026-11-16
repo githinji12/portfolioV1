@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import { Analytics } from "@vercel/analytics/react";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     title: "Brian Githinji | Full Stack Developer",
     description: "Scalable web applications, business systems & modern digital platforms.",
     images: ["/og-image.png"],
-    creator: "@your_twitter_handle"
+    creator: "@briangithinji" // Update with your actual X/Twitter handle if you have one
   },
   icons: {
     icon: "/favicon.ico",
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   }
 };
 
-// Structured Data for SEO
+// Structured Data for SEO (Updated with your actual links)
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -57,9 +58,9 @@ const structuredData = {
   url: "https://githinji-wanjohi-portfolio.vercel.app",
   image: "https://githinji-wanjohi-portfolio.vercel.app/images/my-logo.jpg",
   sameAs: [
-    "https://github.com/bgithinji",
-    "https://linkedin.com/in/briangithinji",
-    "https://wa.me/2547XXXXXXXX"
+    "https://github.com/githinji12",
+    "https://www.linkedin.com/in/githinSji-wanjohi-9b5b202bb/",
+    "https://wa.me/254745506462"
   ],
   worksFor: { "@type": "Organization", name: "Freelance" },
   address: { "@type": "PostalAddress", addressCountry: "KE", addressLocality: "Nyeri" },
@@ -71,25 +72,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        {/* JSON-LD Structured Data for Search Engines */}
+        <script 
+          type="application/ld+json" 
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} 
+        />
+        {/* Preconnect to Resend for faster email API calls */}
         <link rel="preconnect" href="https://api.resend.com" />
       </head>
       <body className={`${inter.variable} antialiased selection:bg-brand-blue/30 selection:text-white`}>
         
-        {/* Accessibility: Skip to Content */}
+        {/* Accessibility: Skip to Content Link */}
         <a 
           href="#main-content" 
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded-lg focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded-lg focus:outline-none transition-all"
         >
           Skip to content
         </a>
 
         <ThemeProvider>
+          {/* Scroll Progress Indicator */}
           <ScrollProgress />
-          <main id="main-content" className="relative min-h-screen">{children}</main>
+          
+          {/* Main Content Area */}
+          <main id="main-content" className="relative min-h-screen">
+            {children}
+          </main>
+          
+          {/* Vercel Analytics */}
           <Analytics />
+          
+          {/* 🟢 Floating WhatsApp Button (Global) */}
+          <FloatingWhatsApp />
+          
         </ThemeProvider>
-
       </body>
     </html>
   );

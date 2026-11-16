@@ -34,7 +34,7 @@ export default function Navbar() {
           <div className="relative h-10 w-10 overflow-hidden rounded-lg">
             <Image
               src="/images/my-logo.jpg"
-              alt="Brian Githinji"
+              alt="Brian Githinji Wanjohi"
               fill
               className="object-cover transition-transform group-hover:scale-110"
               priority

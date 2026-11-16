@@ -23,10 +23,51 @@ const GithubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// 🟦 Built-in LinkedIn Icon
+const LinkedInIcon = ({ className }: { className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+  >
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+
 export default function Contact() {
   const [state, formAction, isPending] = useActionState(submitContactForm, null);
   const isSuccess = state?.success === true;
   const isError = state?.success === false;
+
+  const contactLinks = [
+    { 
+      icon: <Mail className="w-5 h-5" />, 
+      label: "Email", 
+      value: "briangithinji2022@gmail.com", 
+      href: "mailto:briangithinji2022@gmail.com" 
+    },
+    { 
+      icon: <MessageCircle className="w-5 h-5" />, 
+      label: "WhatsApp", 
+      value: "+254 745 506 462", 
+      href: "https://wa.me/254745506462" 
+    },
+    { 
+      icon: <GithubIcon className="w-5 h-5" />, 
+      label: "GitHub", 
+      value: "github.com/githinji12", 
+      href: "https://github.com/githinji12" 
+    },
+    { 
+      icon: <LinkedInIcon className="w-5 h-5" />, 
+      label: "LinkedIn", 
+      value: "linkedin.com/in/githinSji-wanjohi", 
+      href: "https://www.linkedin.com/in/githinSji-wanjohi-9b5b202bb/" // ✅ Updated Link
+    },
+  ];
 
   return (
     <section id="contact" className="section-padding relative">
@@ -42,18 +83,20 @@ export default function Contact() {
           </p>
           
           <div className="space-y-6">
-            {[
-              { icon: <Mail className="w-5 h-5" />, label: "Email", value: "briangithinji2022@gmail.com", href: "mailto:briangithinji2022@gmail.com" },
-              { icon: <MessageCircle className="w-5 h-5" />, label: "WhatsApp", value: "+2547 45 506 462", href: "https://wa.me/254745506462" },
-              { icon: <GithubIcon className="w-5 h-5" />, label: "GitHub", value: "github.com/githinji12", href: "https://github.com/githinji12/" },
-            ].map(item => (
-              <a key={item.label} href={item.href} className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center transition-colors" style={{ color: "var(--text-secondary)" }}>
+            {contactLinks.map(item => (
+              <a 
+                key={item.label} 
+                href={item.href} 
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center transition-colors group-hover:bg-brand-blue/10" style={{ color: "var(--text-secondary)" }}>
                   {item.icon}
                 </div>
                 <div>
                   <div className="text-xs" style={{ color: "var(--text-secondary)" }}>{item.label}</div>
-                  <div className="text-sm font-medium transition-colors group-hover:text-primary" style={{ color: "var(--text-primary)" }}>
+                  <div className="text-sm font-medium transition-colors group-hover:text-brand-blue" style={{ color: "var(--text-primary)" }}>
                     {item.value}
                   </div>
                 </div>
@@ -71,7 +114,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="glass-card p-8 text-center flex flex-col items-center justify-center h-full min-h-100" // ✅ Fixed Tailwind v4
+                className="glass-card p-8 text-center flex flex-col items-center justify-center h-full min-h-100"
               >
                 <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
                 <h3 className="text-2xl font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Message Sent!</h3>
